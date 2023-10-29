@@ -1,0 +1,64 @@
+import Sidebar from "../Component/Layout/Sidebar/Sidebar";
+import Header from "../Component/Layout/Header/Header";
+import {
+  Navigate,
+  Outlet,
+  useNavigate,
+  useOutletContext,
+} from "react-router-dom";
+import { auth } from "../Helpers/Firebase";
+import { getCurrentUser } from "../Helpers/FireStore";
+import { useState } from "react";
+import ChooseInterestModal from "../Component/Pages/ChooseInterestModal";
+import { onAuthStateChanged } from "firebase/auth";
+import { User } from "../Types/User";
+
+type ContextType = { user: User | null };
+
+function DefaultLayout() {
+  const token: any = localStorage.getItem("token");
+  const [user, setUser] = useState<User | null>(null);
+  const navigate = useNavigate();
+
+  onAuthStateChanged(auth, (_user) => {
+    if (_user) {
+      if (!user) {
+        getCurrentUser(_user.uid).then((u) => {
+          setUser(u as User);
+        });
+      }
+      // ...
+    } else {
+      navigate("/login");
+      localStorage.clear();
+    }
+  });
+
+  return (
+    <>
+      {user?.interestList?.length === 0 && (
+        <ChooseInterestModal userId={user.uid} />
+      )}
+      {token ? (
+        <>
+          <Header />
+          <Sidebar />
+          <div
+            className="p-4 bg-primaryDark mdsm:ml-96 mdsm:mr-96"
+            style={{ marginTop: "120px" }}
+          >
+            <Outlet context={{ user } satisfies ContextType} />
+          </div>
+        </>
+      ) : (
+        <Navigate to="/login" />
+      )}
+    </>
+  );
+}
+
+export function useUser() {
+  return useOutletContext<ContextType>();
+}
+
+export default DefaultLayout;
