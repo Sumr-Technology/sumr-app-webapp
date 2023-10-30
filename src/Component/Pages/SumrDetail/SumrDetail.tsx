@@ -28,7 +28,7 @@ const SumrDetail = () => {
     <>
       <div className="flex bg-primaryDark text-white flex-col gap-5">
         <div className="flex justify-between">
-          <Link to={"/dashboard"}>
+          <Link to={"/surms"}>
             <img src={Back} />
           </Link>
           <div className="flex gap-4">

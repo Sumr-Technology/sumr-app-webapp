@@ -48,7 +48,7 @@ function Login() {
       const { user } = await signInWithEmailAndPassword(auth, email, password);
       const token = await user.getIdToken();
       localStorage.setItem("token", token);
-      navigate("/dashboard");
+      navigate("/surms");
       setLoader(false);
     } catch (err: any) {
       CommonError(error);
@@ -62,7 +62,7 @@ function Login() {
       const result = await signInWithPopup(auth, provider);
       const token = await result.user.getIdToken();
       localStorage.setItem("token", token);
-      navigate("/dashboard");
+      navigate("/surms");
       setLoader(false);
     } catch (error: any) {
       CommonError(error);

@@ -75,7 +75,7 @@ function Signup() {
       const token = await result.user.getIdToken();
       await createUser(user.email ?? "", user.uid);
       localStorage.setItem("token", token);
-      navigate("/dashboard");
+      navigate("/surms");
       setLoader(false);
     } catch (error: any) {
       setError(error.message);
