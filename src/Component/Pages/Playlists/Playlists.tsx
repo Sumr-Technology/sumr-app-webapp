@@ -32,7 +32,7 @@ function Playlists() {
 
   return (
     <div className="flex gap-8 flex-col">
-      <FilterSidebar />
+      <FilterSidebar hideCategories={true} />
       <span className="font-semibold text-white text-2xl pl-10">
         {playlist?.name}
       </span>

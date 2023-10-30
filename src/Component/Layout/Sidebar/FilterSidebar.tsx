@@ -36,7 +36,7 @@ const FilterSidebar = ({
       aria-label="Sidebar"
     >
       <div className="h-full pr-36 px-3 flex flex-col gap-8 pb-4 overflow-y-auto bg-primaryDark mt-14">
-        {hideCategories && (
+        {!hideCategories && (
           <div className="flex flex-col bg-zinc-800 rounded-lg px-4 py-2">
             <span className="font-medium border-b border-b-slate-700 pb-1 text-lg text-white">
               Categories
