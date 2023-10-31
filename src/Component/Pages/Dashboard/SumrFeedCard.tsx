@@ -1,10 +1,19 @@
+import { removeFromPlaylist } from "../../../Helpers/FireStore";
 import { Sumr } from "../../../Types/Sumrs";
 import Favorite from "../../../assets/icons/favorite.svg";
 import Send from "../../../assets/icons/send.svg";
 import AddToPlaylisModal from "../../Playlists/AddToPlaylistModal";
 import FullSumrModal from "./FullSumrModal";
 
-export default function SumrFeedCard({ data }: { data: Sumr }) {
+export default function SumrFeedCard({ data, onRemoveFromPlaylist, playlistId }: { data: Sumr, onRemoveFromPlaylist?: () => void, playlistId?: string | null }) {
+
+  async function handleRemoveFromPlaylist() {
+    if (playlistId && onRemoveFromPlaylist) {
+      await removeFromPlaylist(playlistId, data?._id)
+      onRemoveFromPlaylist()
+    }
+  }
+
   return (
     <div>
       <div className="flex text-white  border pb-5 pt-7 px-7 gap-5 bg-primaryDark flex-col rounded-lg">
@@ -25,10 +34,22 @@ export default function SumrFeedCard({ data }: { data: Sumr }) {
             <FullSumrModal data={data} />
           </div>
         </span>
-        <div className="flex -m-1.5 pl-3 gap-4">
-          <AddToPlaylisModal data={data} />
-          <img className="w-5" src={Favorite} />
-          <img className="w-5" src={Send} />
+        <div className="flex justify-between">
+          <div className="flex items-center -m-1.5 pl-3 gap-4">
+            <AddToPlaylisModal data={data} />
+            <img className="w-5" src={Favorite} />
+            <img className="w-5" src={Send} />
+            <a target="_blank" className="text-primary" href={data.url}>
+              View original
+            </a>
+          </div>
+          {playlistId &&
+            <button
+              onClick={handleRemoveFromPlaylist}
+              className="text-primary justify-self-end">
+              Remove from playlist
+            </button>
+          }
         </div>
       </div>
     </div>

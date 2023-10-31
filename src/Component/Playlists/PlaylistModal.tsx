@@ -19,7 +19,11 @@ const customStyles = {
   },
 };
 
-export default function PlaylisModal() {
+export default function PlaylisModal({
+  onNewPlaylist,
+}: {
+  onNewPlaylist: () => void;
+}) {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -40,6 +44,7 @@ export default function PlaylisModal() {
 
   async function newPlaylist() {
     await createPlaylist(name, description, auth?.currentUser?.uid ?? "");
+    onNewPlaylist();
     setIsOpen(false);
   }
 

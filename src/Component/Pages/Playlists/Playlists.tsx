@@ -30,15 +30,26 @@ function Playlists() {
     }
   }, [playlist]);
 
+  function refetchPlaylist() {
+    getPlaylist(playlistId ?? "").then((p) => {
+      setPlaylist(p);
+    });
+  }
+
   return (
     <div className="flex gap-8 flex-col">
-      <FilterSidebar hideCategories={true} />
+      <FilterSidebar currentPlaylistId={playlistId} hideCategories={true} />
       <span className="font-semibold text-white text-2xl pl-10">
         {playlist?.name}
       </span>
       <div className="flex px-10 flex-col gap-6">
         {sumrs?.map((sm, i) => {
-          return <SumrFeedCard key={i} data={sm} />;
+          return <SumrFeedCard 
+          playlistId={playlistId}
+          onRemoveFromPlaylist={() => {
+            refetchPlaylist()
+          }}
+          key={i} data={sm} />;
         })}
       </div>
     </div>

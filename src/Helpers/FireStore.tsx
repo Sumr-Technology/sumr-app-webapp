@@ -9,6 +9,8 @@ import {
   arrayUnion,
   documentId,
   getDoc,
+  arrayRemove,
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "./Firebase";
 import { User } from "../Types/User";
@@ -96,6 +98,17 @@ export async function createPlaylist(
     userid,
     sumrs: [],
   });
+}
+
+export async function removeFromPlaylist(playlistId: string, sumrId: string) {
+  const ref = doc(db, "playlists", playlistId);
+  return await updateDoc(ref, {
+    sumrs: arrayRemove(sumrId),
+  });
+}
+
+export async function deletePlaylist(playlistId: string) {
+  await deleteDoc(doc(db, "playlists", playlistId));
 }
 
 export async function addToPlaylist(playlistId: string, sumrId: string) {
