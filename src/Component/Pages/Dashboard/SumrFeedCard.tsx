@@ -2,6 +2,7 @@ import { Sumr } from "../../../Types/Sumrs";
 import Favorite from "../../../assets/icons/favorite.svg";
 import Send from "../../../assets/icons/send.svg";
 import AddToPlaylisModal from "../../Playlists/AddToPlaylistModal";
+import FullSumrModal from "./FullSumrModal";
 
 export default function SumrFeedCard({ data }: { data: Sumr }) {
   return (
@@ -20,8 +21,11 @@ export default function SumrFeedCard({ data }: { data: Sumr }) {
         <span className="font-normal px-3 text-gray-300">
           {data?.sumr.substring(0, 350)}
           {data?.sumr?.length > 350 ? "..." : ""}
+          <div className="flex w-full justify-center">
+            <FullSumrModal data={data} />
+          </div>
         </span>
-        <div className="flex pl-3 gap-4">
+        <div className="flex -m-1.5 pl-3 gap-4">
           <AddToPlaylisModal data={data} />
           <img className="w-5" src={Favorite} />
           <img className="w-5" src={Send} />

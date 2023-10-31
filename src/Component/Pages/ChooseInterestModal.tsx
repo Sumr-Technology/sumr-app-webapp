@@ -68,8 +68,8 @@ export default function ChooseInterestModal({ userId }: { userId: string }) {
             </div>
 
             <button
-              onClick={() => {
-                chooseInterest(selectedInterest, userId);
+              onClick={async () => {
+                await chooseInterest(selectedInterest, userId);
               }}
               className="border mt-6 border-primary rounded w-44 self-center"
             >

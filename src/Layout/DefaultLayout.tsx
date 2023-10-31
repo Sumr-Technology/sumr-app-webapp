@@ -13,7 +13,7 @@ import ChooseInterestModal from "../Component/Pages/ChooseInterestModal";
 import { onAuthStateChanged } from "firebase/auth";
 import { User } from "../Types/User";
 
-type ContextType = { user: User | null };
+type ContextType = { user: User | null; refetchCurrentUser: () => void };
 
 function DefaultLayout() {
   const token: any = localStorage.getItem("token");
@@ -34,6 +34,12 @@ function DefaultLayout() {
     }
   });
 
+  const refetchCurrentUser = () => {
+    getCurrentUser(user?.uid ?? "").then((u) => {
+      setUser(u as User);
+    });
+  };
+
   return (
     <>
       {user?.interestList?.length === 0 && (
@@ -47,7 +53,9 @@ function DefaultLayout() {
             className="p-4 bg-primaryDark mdsm:ml-96 mdsm:mr-96"
             style={{ marginTop: "120px" }}
           >
-            <Outlet context={{ user } satisfies ContextType} />
+            <Outlet
+              context={{ user, refetchCurrentUser } satisfies ContextType}
+            />
           </div>
         </>
       ) : (

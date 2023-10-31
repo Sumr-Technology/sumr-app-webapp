@@ -6,8 +6,17 @@ import {
 } from "firebase/storage";
 import { storage } from "../../../Helpers/Firebase";
 import { updateUserImage } from "../../../Helpers/FireStore";
+import { User } from "../../../Types/User";
 
-export default function ProfileImage({ userId }: { userId: string }) {
+export default function ProfileImage({
+  userId,
+  user,
+  refetchCurrentUser,
+}: {
+  userId: string;
+  user: User | null;
+  refetchCurrentUser: () => void;
+}) {
   const [imageUpload, setImageUpload] = useState<File | null>(null);
   const [image, setImage] = useState<string | null>(null);
   const [unsaved, setUnsaved] = useState(false);
@@ -25,6 +34,7 @@ export default function ProfileImage({ userId }: { userId: string }) {
           .then(async (url) => {
             await updateUserImage(userId, url);
             setUnsaved(false);
+            refetchCurrentUser();
           })
           .catch((error) => {
             console.log("profile error", error);
@@ -38,11 +48,15 @@ export default function ProfileImage({ userId }: { userId: string }) {
   return (
     <div className="flex self-start items-center justify-center gap-3 flex-col">
       {image && <img className="w-24 rounded-full h-24" src={image} />}
-      {!image && <span className="bg-white rounded-full w-24 h-24" />}
-
+      {!image && !user?.profileImage && (
+        <span className="bg-white rounded-full w-24 h-24" />
+      )}
+      {user?.profileImage && !unsaved && !image && (
+        <img className="w-24 rounded-full h-24" src={user?.profileImage} />
+      )}
       <div className="flex gap-2">
         <form>
-          <div className="flex flex-row items-center">
+          <div className="flex items-center">
             <input
               type="file"
               id="custom-input"
@@ -57,9 +71,9 @@ export default function ProfileImage({ userId }: { userId: string }) {
             />
             <label
               htmlFor="custom-input"
-              className="block text-slate-500 mr-4 py-2 px-4
-            rounded-md border-0 text-sm font-semibold bg-pink-50
-         hover:bg-pink-100 cursor-pointer"
+              className="block py-1 px-4
+                        rounded-md border text-sm font-semibold text-primary bg-primaryDark border-primary
+                      hover:bg-gray-500 cursor-pointer"
             >
               Choose file
             </label>

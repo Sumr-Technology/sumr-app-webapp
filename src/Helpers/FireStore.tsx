@@ -14,12 +14,19 @@ import { db } from "./Firebase";
 import { User } from "../Types/User";
 import { Playlist } from "../Types/Playlist";
 
-export async function createUser(email: string, uid: string) {
+export async function createUser(
+  email: string,
+  uid: string,
+  name: string | null,
+  username: string | null,
+) {
   await setDoc(doc(db, "Users", uid), {
     email,
     uid,
     likes: [],
     interestList: [],
+    name: name ?? "",
+    username: username ?? "",
   });
   return await createPlaylist("Favourites", "Your favourites sumrs", uid);
 }
@@ -28,6 +35,18 @@ export async function updateUserImage(userId: string, profileImage: string) {
   const ref = doc(db, "Users", userId);
   return await updateDoc(ref, {
     profileImage: profileImage,
+  });
+}
+
+export async function updateUserProfile(
+  userid: string,
+  data: { name: string; username: string; dob: string },
+) {
+  const ref = doc(db, "Users", userid);
+  return await updateDoc(ref, {
+    name: data.name,
+    username: data.username,
+    dob: data.dob,
   });
 }
 
