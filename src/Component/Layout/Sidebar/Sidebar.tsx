@@ -5,7 +5,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const SIDEBAR_TABS = [
-    { name: "Sumrs", path: "/surms" },
+    { name: "Sumrs", path: "/sumrs" },
     { name: "Profile", path: "/profile" },
     { name: "Playlists", path: "/playlists" },
   ];

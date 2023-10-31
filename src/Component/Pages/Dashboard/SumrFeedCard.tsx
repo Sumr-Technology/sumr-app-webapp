@@ -18,8 +18,8 @@ export default function SumrFeedCard({ data }: { data: Sumr }) {
 
         <span className="font-semibold text-center text-xl">{data?.title}</span>
         <span className="font-normal px-3 text-gray-300">
-          {data?.sumr.substring(0, 200)}
-          {data?.sumr?.length > 200 ? "..." : ""}
+          {data?.sumr.substring(0, 350)}
+          {data?.sumr?.length > 350 ? "..." : ""}
         </span>
         <div className="flex pl-3 gap-4">
           <AddToPlaylisModal data={data} />
