@@ -5,12 +5,19 @@ import Send from "../../../assets/icons/send.svg";
 import AddToPlaylisModal from "../../Playlists/AddToPlaylistModal";
 import FullSumrModal from "./FullSumrModal";
 
-export default function SumrFeedCard({ data, onRemoveFromPlaylist, playlistId }: { data: Sumr, onRemoveFromPlaylist?: () => void, playlistId?: string | null }) {
-
+export default function SumrFeedCard({
+  data,
+  onRemoveFromPlaylist,
+  playlistId,
+}: {
+  data: Sumr;
+  onRemoveFromPlaylist?: () => void;
+  playlistId?: string | null;
+}) {
   async function handleRemoveFromPlaylist() {
     if (playlistId && onRemoveFromPlaylist) {
-      await removeFromPlaylist(playlistId, data?._id)
-      onRemoveFromPlaylist()
+      await removeFromPlaylist(playlistId, data?._id);
+      onRemoveFromPlaylist();
     }
   }
 
@@ -43,13 +50,14 @@ export default function SumrFeedCard({ data, onRemoveFromPlaylist, playlistId }:
               View original
             </a>
           </div>
-          {playlistId &&
+          {playlistId && (
             <button
               onClick={handleRemoveFromPlaylist}
-              className="text-primary justify-self-end">
+              className="text-primary justify-self-end"
+            >
               Remove from playlist
             </button>
-          }
+          )}
         </div>
       </div>
     </div>

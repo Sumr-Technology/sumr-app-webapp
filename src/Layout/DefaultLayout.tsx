@@ -50,7 +50,7 @@ function DefaultLayout() {
           <Header />
           <Sidebar />
           <div
-          // mdsm:ml-96 mdsm:mr-96
+            // mdsm:ml-96 mdsm:mr-96
             className="p-4 bg-primaryDark lg2:ml-96 lg2:mr-96 lg1:ml-64 lg1:mr-64 mdsm:ml-56 mdsm:mr-56"
             style={{ marginTop: "120px" }}
           >

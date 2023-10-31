@@ -44,12 +44,16 @@ function Playlists() {
       </span>
       <div className="flex px-10 flex-col gap-6">
         {sumrs?.map((sm, i) => {
-          return <SumrFeedCard 
-          playlistId={playlistId}
-          onRemoveFromPlaylist={() => {
-            refetchPlaylist()
-          }}
-          key={i} data={sm} />;
+          return (
+            <SumrFeedCard
+              playlistId={playlistId}
+              onRemoveFromPlaylist={() => {
+                refetchPlaylist();
+              }}
+              key={i}
+              data={sm}
+            />
+          );
         })}
       </div>
     </div>
