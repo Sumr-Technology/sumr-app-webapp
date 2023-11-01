@@ -1,7 +1,6 @@
-import React from "react";
-import SumrLogo from '/Users/sburke/Desktop/Development/Sumr/sumr-app-webapp/src/assets/images/Sumr.png'
-import { Fragment, useState } from "react";
-import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
+import SumrLogo from '../../../assets/images/Sumr.png'
+import { useState } from "react";
+import { Dialog } from "@headlessui/react";
 import {
   ArrowPathIcon,
   Bars3Icon,
