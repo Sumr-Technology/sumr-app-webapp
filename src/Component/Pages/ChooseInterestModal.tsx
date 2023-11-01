@@ -10,7 +10,7 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    backgroundColor: "#1b1c1e",
+    backgroundColor: "#203436",
   },
   overlay: {
     backgroundColor: "rgba(0,0,0,0.8)",
