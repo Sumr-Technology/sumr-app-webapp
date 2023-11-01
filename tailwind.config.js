@@ -7,6 +7,8 @@ export default {
     extend: {
       screens: {
         mdsm: "900px",
+        lg1: "1200px",
+        lg2: "1350px",
       },
       colors: {
         primary: "#28B7B8",
