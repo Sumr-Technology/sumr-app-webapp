@@ -1,6 +1,9 @@
-import { removeFromPlaylist } from "../../../Helpers/FireStore";
+import { useEffect, useState } from "react";
+import { likeSumr, removeFromPlaylist } from "../../../Helpers/FireStore";
 import { Sumr } from "../../../Types/Sumrs";
+import { User } from "../../../Types/User";
 import Favorite from "../../../assets/icons/favorite.svg";
+import FavoriteBorder from "../../../assets/icons/favorite_border.svg";
 import Send from "../../../assets/icons/send.svg";
 import AddToPlaylisModal from "../../Playlists/AddToPlaylistModal";
 import FullSumrModal from "./FullSumrModal";
@@ -9,16 +12,34 @@ export default function SumrFeedCard({
   data,
   onRemoveFromPlaylist,
   playlistId,
+  user,
 }: {
   data: Sumr;
   onRemoveFromPlaylist?: () => void;
   playlistId?: string | null;
+  user: User | null;
 }) {
+  console.log("sumr", data);
+
+  const [isLiked, setIsLiked] = useState<boolean | undefined>(undefined);
+
   async function handleRemoveFromPlaylist() {
     if (playlistId && onRemoveFromPlaylist) {
       await removeFromPlaylist(playlistId, data?._id);
       onRemoveFromPlaylist();
     }
+  }
+
+  useEffect(() => {
+    if (user) {
+      const isFound = user?.likes?.find((l) => l === data._id);
+      setIsLiked(isFound !== undefined);
+    }
+  }, [user]);
+
+  async function handleLike() {
+    await likeSumr(user?.uid ?? "", data._id, !isLiked);
+    setIsLiked(!isLiked);
   }
 
   return (
@@ -44,7 +65,11 @@ export default function SumrFeedCard({
         <div className="flex justify-between">
           <div className="flex items-center -m-1.5 pl-3 gap-4">
             <AddToPlaylisModal data={data} />
-            <img className="w-5" src={Favorite} />
+            <img
+              onClick={handleLike}
+              className="w-5 cursor-pointer"
+              src={isLiked ? Favorite : FavoriteBorder}
+            />
             <img className="w-5" src={Send} />
             <a target="_blank" className="text-primary" href={data.url}>
               View original
@@ -63,6 +88,3 @@ export default function SumrFeedCard({
     </div>
   );
 }
-
-// Increment global counter
-// Add to favorites

@@ -1,63 +1,9 @@
-import SumrLogo from '../../../assets/images/Sumr.png'
+import SumrLogo from "../../../assets/images/Sumr.png";
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
-import {
-  ArrowPathIcon,
-  Bars3Icon,
-  ChartPieIcon,
-  CursorArrowRaysIcon,
-  FingerPrintIcon,
-  SquaresPlusIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-import {
-  ChevronDownIcon,
-  PhoneIcon,
-  PlayCircleIcon,
-} from "@heroicons/react/20/solid";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../../Helpers/Firebase";
-
-const products = [
-  {
-    name: "Analytics",
-    description: "Get a better understanding of your traffic",
-    href: "#",
-    icon: ChartPieIcon,
-  },
-  {
-    name: "Engagement",
-    description: "Speak directly to your customers",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-  {
-    name: "Security",
-    description: "Your customers’ data will be safe and secure",
-    href: "#",
-    icon: FingerPrintIcon,
-  },
-  {
-    name: "Integrations",
-    description: "Connect with third-party tools",
-    href: "#",
-    icon: SquaresPlusIcon,
-  },
-  {
-    name: "Automations",
-    description: "Build strategic funnels that will convert",
-    href: "#",
-    icon: ArrowPathIcon,
-  },
-];
-const callsToAction = [
-  { name: "Watch demo", href: "#", icon: PlayCircleIcon },
-  { name: "Contact sales", href: "#", icon: PhoneIcon },
-];
-
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(" ");
-}
 
 const SIDEBAR_TABS = [
   { name: "Sumrs", path: "/sumrs" },
@@ -82,15 +28,14 @@ const Header = () => {
     <>
       <nav className="fixed top-0 z-50 text-white w-full bg-primaryDark">
         <header className="px-36">
-          <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+          <nav
+            className="flex items-center justify-between p-6 lg:px-8"
+            aria-label="Global"
+          >
             <div className="flex lg:flex-1">
               <a href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Sumr</span>
-                <img
-                  src={SumrLogo} 
-                  alt="Sumr"
-                  className="h-8 w-auto" 
-                />
+                <img src={SumrLogo} alt="Sumr" className="h-8 w-auto" />
               </a>
             </div>
             <div className="flex lg:hidden">
@@ -123,11 +68,7 @@ const Header = () => {
               <div className="flex items-center justify-between">
                 <a href="#" className="-m-1.5 p-1.5">
                   <span className="sr-only">Sumr</span>
-                  <img
-                    src={SumrLogo} 
-                    alt="Sumr"
-                    className="h-8 w-auto" 
-                  />
+                  <img src={SumrLogo} alt="Sumr" className="h-8 w-auto" />
                 </a>
                 <button
                   type="button"

@@ -15,6 +15,7 @@ import {
 import { db } from "./Firebase";
 import { User } from "../Types/User";
 import { Playlist } from "../Types/Playlist";
+import { apiGETCall, apiPOSTCall } from "./Service";
 
 export async function createUser(
   email: string,
@@ -30,7 +31,20 @@ export async function createUser(
     name: name ?? "",
     username: username ?? "",
   });
-  return await createPlaylist("Favourites", "Your favourites sumrs", uid);
+  return await createFavPlaylist("Favourites", "Your favourites sumrs", uid);
+}
+
+export async function createFavPlaylist(
+  name: string,
+  description: string,
+  userid: string,
+) {
+  return await setDoc(doc(db, "playlists", userid + "fav"), {
+    name: name,
+    description,
+    userid,
+    sumrs: [],
+  });
 }
 
 export async function updateUserImage(userId: string, profileImage: string) {
@@ -58,7 +72,29 @@ export async function getCurrentUser(userid: string) {
   return user as User;
 }
 
-export async function likeSumr(userId: string, sumrId: string) {}
+export async function likeSumr(
+  userid: string,
+  sumrId: string,
+  isLiked: boolean,
+) {
+  let url = `${sumrId}/`;
+  const ref = doc(db, "Users", userid);
+  if (isLiked) {
+    await addToPlaylist(userid + "fav", sumrId);
+    await updateDoc(ref, {
+      likes: arrayUnion(sumrId),
+    });
+    url += "addLike";
+  } else {
+    await removeFromPlaylist(userid + "fav", sumrId);
+    await updateDoc(ref, {
+      likes: arrayRemove(sumrId),
+    });
+    url += "subtractLike";
+  }
+
+  return await apiPOSTCall("/api/sumrs/" + url);
+}
 
 export async function chooseInterest(interest: string[], userId: string) {
   const ref = doc(db, "Users", userId);

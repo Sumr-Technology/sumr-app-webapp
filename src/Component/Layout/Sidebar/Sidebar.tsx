@@ -3,16 +3,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 import {
   SquaresPlusIcon,
   UserIcon,
-  NewspaperIcon
+  NewspaperIcon,
 } from "@heroicons/react/24/outline";
 
 const Sidebar = () => {
   const navigate = useNavigate();
 
   const SIDEBAR_TABS = [
-    { name: "Sumrs", path: "/sumrs" , icon: NewspaperIcon},
-    { name: "Profile", path: "/profile" , icon: UserIcon},
-    { name: "Playlists", path: "/playlists" , icon: SquaresPlusIcon},
+    { name: "Sumrs", path: "/sumrs", icon: NewspaperIcon },
+    { name: "Profile", path: "/profile", icon: UserIcon },
+    { name: "Playlists", path: "/playlists", icon: SquaresPlusIcon },
   ];
 
   const location = useLocation();

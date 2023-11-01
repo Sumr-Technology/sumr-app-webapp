@@ -72,7 +72,7 @@ const Dashboard = () => {
 
       <div className="flex px-10 flex-col gap-6">
         {sumrs?.map((sm, i) => {
-          return <SumrFeedCard key={i} data={sm} />;
+          return <SumrFeedCard user={user} key={i} data={sm} />;
         })}
       </div>
     </div>

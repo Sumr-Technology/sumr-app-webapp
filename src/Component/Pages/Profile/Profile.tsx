@@ -1,7 +1,6 @@
 import ProfileImage from "./ProfileImage";
 import { useUser } from "../../../Layout/DefaultLayout";
 import { useEffect, useState } from "react";
-import { updateProfile } from "firebase/auth";
 import { updateUserProfile } from "../../../Helpers/FireStore";
 
 const Profile = () => {
@@ -52,7 +51,7 @@ const Profile = () => {
       : "";
 
   return (
-    <div className="flex gap-6 text-white flex-col">
+    <div className="flex gap-6 text-white relative flex-col">
       <span className="font-semibold text-3xl">Your Profile</span>
       <div className="flex-col flex gap-10">
         <ProfileImage

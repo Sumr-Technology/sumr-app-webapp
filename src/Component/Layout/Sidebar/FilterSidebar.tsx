@@ -96,7 +96,7 @@ const FilterSidebar = ({
               {playlists?.map((tab, i) => (
                 <li className="w-full flex justify-between" key={i}>
                   <Link
-                    to={"/playlist?id=" + tab.id}
+                    to={"/playlists?id=" + tab.id}
                     className="flex w-full items-center p-2 text-white rounded-lg hover:bg-slate-700 dark:hover:bg-gray-700"
                   >
                     {tab.name}

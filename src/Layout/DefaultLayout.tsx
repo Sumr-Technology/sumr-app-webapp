@@ -43,7 +43,10 @@ function DefaultLayout() {
   return (
     <>
       {user?.interestList?.length === 0 && (
-        <ChooseInterestModal userId={user.uid} />
+        <ChooseInterestModal
+          refetchCurrentUser={refetchCurrentUser}
+          userId={user.uid}
+        />
       )}
       {token ? (
         <>

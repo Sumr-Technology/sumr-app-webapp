@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Modal from "react-modal";
 import { chooseInterest } from "../../Helpers/FireStore";
 
@@ -19,7 +19,13 @@ const customStyles = {
 
 const interests = ["Crypto", "Regulations", "Finance"];
 
-export default function ChooseInterestModal({ userId }: { userId: string }) {
+export default function ChooseInterestModal({
+  userId,
+  refetchCurrentUser,
+}: {
+  userId: string;
+  refetchCurrentUser: () => void;
+}) {
   const [selectedInterest, setSelectedInterest] = useState<string[]>([]);
 
   function afterOpenModal() {
@@ -70,6 +76,7 @@ export default function ChooseInterestModal({ userId }: { userId: string }) {
             <button
               onClick={async () => {
                 await chooseInterest(selectedInterest, userId);
+                refetchCurrentUser();
               }}
               className="border mt-6 border-primary rounded w-44 self-center"
             >

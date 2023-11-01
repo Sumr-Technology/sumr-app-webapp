@@ -2,7 +2,7 @@ import {
   fetchSignInMethodsForEmail,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../Helpers/Firebase";
 
@@ -12,15 +12,13 @@ function ForgotPassword() {
   const [error, setError] = useState("");
   const [loader, setLoader] = useState(false);
 
-  const validateEmail = (email: string) => {
-    const re = /\S+@\S+\.\S+/;
-    return re.test(email);
-  };
   const handleResetPassword = async () => {
     try {
+      setLoader(true);
       // Check if email exists in Firebase Authentication
       const methods = await fetchSignInMethodsForEmail(auth, email);
       if (methods.length === 0) {
+        setLoader(false);
         setError("Email does not exist.");
         return;
       }
@@ -28,7 +26,9 @@ function ForgotPassword() {
       // Send password reset email
       await sendPasswordResetEmail(auth, email);
       setError("Password reset email sent. Please check your inbox.");
+      setLoader(false);
     } catch (err: any) {
+      setLoader(false);
       if (err.code === "auth/user-not-found") {
         setError("Email does not exist.");
       } else {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { apiGETCall } from "../../../Helpers/Service";
 import { Sumr } from "../../../Types/Sumrs";

@@ -49,7 +49,7 @@ const routes = createBrowserRouter([
         element: <Profile />,
       },
       {
-        path: "playlist",
+        path: "playlists",
         element: <Playlists />,
       },
     ],

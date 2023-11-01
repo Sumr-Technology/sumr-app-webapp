@@ -7,4 +7,5 @@ export interface User {
   bio: string;
   username: string;
   dob: string;
+  likes: string[];
 }

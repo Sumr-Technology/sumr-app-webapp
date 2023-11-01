@@ -6,12 +6,16 @@ import { Playlist } from "../../../Types/Playlist";
 import { apiGETCall } from "../../../Helpers/Service";
 import SumrFeedCard from "../Dashboard/SumrFeedCard";
 import FilterSidebar from "../../Layout/Sidebar/FilterSidebar";
+import { useUser } from "../../../Layout/DefaultLayout";
 
 function Playlists() {
   const [searchParams] = useSearchParams();
   const playlistId = searchParams.get("id");
   const [playlist, setPlaylist] = useState<Playlist | null>();
   const [sumrs, setSumrs] = useState<Sumr[]>([]);
+
+  const { user } = useUser();
+
   useEffect(() => {
     if (playlistId) {
       getPlaylist(playlistId).then((p) => {
@@ -46,6 +50,7 @@ function Playlists() {
         {sumrs?.map((sm, i) => {
           return (
             <SumrFeedCard
+              user={user}
               playlistId={playlistId}
               onRemoveFromPlaylist={() => {
                 refetchPlaylist();

@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  mode: 'jit',
+  mode: "jit",
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   darkMode: "class",
   theme: {
@@ -16,12 +16,8 @@ export default {
       },
     },
     fontFamily: {
-      body: [
-        "Outfit"
-      ],
-      sans: [
-        "Outfit"
-      ],
+      body: ["Outfit"],
+      sans: ["Outfit"],
     },
   },
   plugins: [],
