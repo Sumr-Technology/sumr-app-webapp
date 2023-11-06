@@ -13,7 +13,7 @@ import Playlists from "../Component/Pages/Playlists/Playlists";
 const routes = createBrowserRouter([
   {
     path: "/",
-    element: <AuthLayout />,
+    element: <Login />,
   },
   {
     path: "/",
