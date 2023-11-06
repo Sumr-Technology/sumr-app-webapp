@@ -101,14 +101,16 @@ const FilterSidebar = ({
                   >
                     {tab.name}
                   </Link>
+                  { tab?.id?.toLowerCase() !== (_auth?.currentUser?.uid + "fav").toLowerCase() &&
                   <button
-                    className="text-white ml-5"
-                    onClick={async () => {
-                      handleDeletePlaylist(tab.id);
-                    }}
-                  >
-                    x
-                  </button>
+                  className="text-white ml-5"
+                  onClick={async () => {
+                    handleDeletePlaylist(tab.id);
+                  }}
+                >
+                  x
+                </button>
+                  }
                 </li>
               ))}
             </ul>
