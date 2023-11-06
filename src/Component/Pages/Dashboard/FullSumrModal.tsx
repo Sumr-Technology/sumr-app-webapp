@@ -53,8 +53,13 @@ export default function FullSumrModal({ data }: { data: Sumr }) {
             </div>
             <span className="font-bold text-xl -mt-4">{data.title}</span>
 
-            <div className="text-white overflow-scroll max-h-[600px]">
+            <div className="text-white overflow-scroll max-h-[575px]">
               {data.full_text}
+            </div>
+            <div className="flex gap-2">
+              {data?.tag?.map((t) => (
+                <div className="border px-2 py-1">{t}</div>
+              ))}
             </div>
           </div>
         </div>

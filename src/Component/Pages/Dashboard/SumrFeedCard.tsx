@@ -19,8 +19,6 @@ export default function SumrFeedCard({
   playlistId?: string | null;
   user: User | null;
 }) {
-  console.log("sumr", data);
-
   const [isLiked, setIsLiked] = useState<boolean | undefined>(undefined);
 
   async function handleRemoveFromPlaylist() {
@@ -42,9 +40,12 @@ export default function SumrFeedCard({
     setIsLiked(!isLiked);
   }
 
+  let _date = new Date(data?.date).toISOString().split("T")[0];
+
   return (
     <div>
-      <div className="flex text-white  border pb-5 pt-7 px-7 gap-5 bg-primaryDark flex-col rounded-lg">
+      <div className="flex text-white mb-5 border pb-5 pt-7 px-7 gap-5 bg-primaryDark flex-col rounded-lg">
+        <span className="self-end -my-3">{_date}</span>
         <div className="gap-3 flex flex-col">
           <img
             className="h-44 object-none rounded-lg"

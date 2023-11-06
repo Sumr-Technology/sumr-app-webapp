@@ -1,5 +1,5 @@
-const baseURL = "https://sumr-app-api-production.up.railway.app";
-// const baseURL = "http://127.0.0.1:3000"
+// const baseURL = "https://sumr-app-api-production.up.railway.app";
+const baseURL = "http://127.0.0.1:3000";
 export async function apiGETCall(path: string) {
   const res = await fetch(baseURL + path);
   return await res.json();
