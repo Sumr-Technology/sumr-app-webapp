@@ -7,19 +7,26 @@ import { auth } from "../../../Helpers/Firebase";
 import { useUser } from "../../../Layout/DefaultLayout";
 import InfiniteScroll from "react-infinite-scroller";
 
+const availableCategories = [
+  "Fintech",
+  "Funding",
+  "AI",
+  "M&A",
+  "Startups",
+  "Cybersecurity",
+  "Robotics",
+  "Crypto",
+  "Transportation",
+  "Consumer",
+  "Regulations",
+];
+
 const Dashboard = () => {
   const [sumrs, setSumrs] = useState<Sumr[]>([]);
 
   const [categories, setCategories] = useState<string[]>([]);
-  const [availableCategories, setAvailableCategories] = useState<string[]>([]);
   const [page, setPage] = useState(0);
   const { user } = useUser();
-
-  useEffect(() => {
-    apiGETCall("/api/sumrs/categories").then((r: string[]) => {
-      setAvailableCategories(r);
-    });
-  }, []);
 
   useEffect(() => {
     if (user) {

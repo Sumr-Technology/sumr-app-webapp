@@ -61,7 +61,9 @@ function Signup() {
         password,
       );
       await createUser(email, userCreds.user.uid, name, username);
-      navigate("/login");
+      const token = await userCreds.user.getIdToken();
+      localStorage.setItem("token", token);
+      navigate("/sumrs");
       setLoader(false);
     } catch (err: any) {
       setError(err.message);
@@ -97,17 +99,17 @@ function Signup() {
 
   return (
     <>
-      <section className="bg-gray-50 dark:bg-gray-900">
+      <section className="bg-primaryDark">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-          <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div className="w-full bg-primaryDark border-2 border-primary rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               {error && <span className="mt-10 text-red-600">{error}</span>}
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
                 Sign up to your account
               </h1>
               <form className="space-y-4 md:space-y-6" action="#">
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  <label className="block mb-2 text-sm font-medium text-primary">
                     Your email
                   </label>
                   <input
@@ -117,12 +119,12 @@ function Signup() {
                     value={email}
                     required
                     onChange={(e) => setEmail(e.target.value)}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-primaryDark border border-primary text-white sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                     placeholder="name@company.com"
                   />
                 </div>
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  <label className="block mb-2 text-sm font-medium text-primary">
                     Password
                   </label>
                   <input
@@ -133,12 +135,12 @@ function Signup() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-primaryDark border border-primary text-white sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                   />
                 </div>
 
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  <label className="block mb-2 text-sm font-medium text-primary">
                     Name
                   </label>
                   <input
@@ -149,12 +151,12 @@ function Signup() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-primaryDark border border-primary text-white sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                   />
                 </div>
 
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  <label className="block mb-2 text-sm font-medium text-primary">
                     Username
                   </label>
                   <input
@@ -165,7 +167,7 @@ function Signup() {
                     value={username}
                     onChange={(e) => setUserName(e.target.value)}
                     required
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-primaryDark border border-primary text-white sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                   />
                 </div>
 
@@ -203,11 +205,11 @@ function Signup() {
                     Sign up...
                   </button>
                 )}
-                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                <p className="text-sm font-light text-white">
                   Do you have an account already?
                   <a
                     onClick={() => navigate("/login")}
-                    className="font-medium text-primary-600 hover:underline dark:text-primary-500 cursor-pointer"
+                    className="font-medium text-primary hover:underline cursor-pointer"
                   >
                     Log in
                   </a>
@@ -217,7 +219,7 @@ function Signup() {
                 aria-label="Continue with google"
                 role="button"
                 onClick={handleGoogleLogin}
-                className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full mt-10"
+                className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-white flex items-center w-full mt-10"
               >
                 <svg
                   width={19}
@@ -246,7 +248,7 @@ function Signup() {
                 {userEmail ? (
                   <p className="text-primary-500 ml-4">{userEmail}</p>
                 ) : (
-                  <p className="text-base font-medium ml-4 text-gray-700">
+                  <p className="text-base font-medium ml-4 text-white">
                     Continue with Google
                   </p>
                 )}

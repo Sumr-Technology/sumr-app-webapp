@@ -7,6 +7,7 @@ import FavoriteBorder from "../../../assets/icons/favorite_border.svg";
 import Send from "../../../assets/icons/send.svg";
 import AddToPlaylisModal from "../../Playlists/AddToPlaylistModal";
 import FullSumrModal from "./FullSumrModal";
+import { getSumrBanner } from "../../../Helpers/Banners";
 
 export default function SumrFeedCard({
   data,
@@ -20,6 +21,7 @@ export default function SumrFeedCard({
   user: User | null;
 }) {
   const [isLiked, setIsLiked] = useState<boolean | undefined>(undefined);
+  const [banner, setBanner] = useState("");
 
   async function handleRemoveFromPlaylist() {
     if (playlistId && onRemoveFromPlaylist) {
@@ -33,11 +35,17 @@ export default function SumrFeedCard({
       const isFound = user?.likes?.find((l) => l === data._id);
       setIsLiked(isFound !== undefined);
     }
+    _getBanner();
   }, [user]);
 
   async function handleLike() {
     await likeSumr(user?.uid ?? "", data._id, !isLiked);
     setIsLiked(!isLiked);
+  }
+
+  async function _getBanner() {
+    let _banner = await getSumrBanner(data);
+    setBanner(_banner);
   }
 
   let _date = new Date(data?.date).toISOString().split("T")[0];
@@ -47,12 +55,7 @@ export default function SumrFeedCard({
       <div className="flex text-white mb-5 border pb-5 pt-7 px-7 gap-5 bg-primaryDark flex-col rounded-lg">
         <span className="self-end -my-3">{_date}</span>
         <div className="gap-3 flex flex-col">
-          <img
-            className="h-44 object-none rounded-lg"
-            src={
-              "https://venturebeat.com/wp-content/uploads/2023/10/Firefly-A-field-full-of-fireflies-atop-a-city-building-67568.jpg?fit=750%2C429&strip=all"
-            }
-          />
+          <img className="h-44 object-cover rounded-lg" src={banner} />
         </div>
 
         <span className="font-semibold text-center text-xl">{data?.title}</span>

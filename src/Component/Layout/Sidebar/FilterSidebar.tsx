@@ -1,6 +1,5 @@
-import React, { Dispatch, useEffect, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Sumr } from "../../../Types/Sumrs";
 import PlaylisModal from "../../Playlists/PlaylistModal";
 import { deletePlaylist, getUserPlaylists } from "../../../Helpers/FireStore";
 import { auth } from "../../../Helpers/Firebase";
@@ -101,16 +100,17 @@ const FilterSidebar = ({
                   >
                     {tab.name}
                   </Link>
-                  { tab?.id?.toLowerCase() !== (_auth?.currentUser?.uid + "fav").toLowerCase() &&
-                  <button
-                  className="text-white ml-5"
-                  onClick={async () => {
-                    handleDeletePlaylist(tab.id);
-                  }}
-                >
-                  x
-                </button>
-                  }
+                  {tab?.id?.toLowerCase() !==
+                    (_auth?.currentUser?.uid + "fav").toLowerCase() && (
+                    <button
+                      className="text-white ml-5"
+                      onClick={async () => {
+                        handleDeletePlaylist(tab.id);
+                      }}
+                    >
+                      x
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>

@@ -7,7 +7,6 @@ import {
   where,
   updateDoc,
   arrayUnion,
-  documentId,
   getDoc,
   arrayRemove,
   deleteDoc,
@@ -15,7 +14,7 @@ import {
 import { db } from "./Firebase";
 import { User } from "../Types/User";
 import { Playlist } from "../Types/Playlist";
-import { apiGETCall, apiPOSTCall } from "./Service";
+import { apiPOSTCall } from "./Service";
 
 export async function createUser(
   email: string,
@@ -23,6 +22,10 @@ export async function createUser(
   name: string | null,
   username: string | null,
 ) {
+  const user = await getCurrentUser(uid);
+  if (user) {
+    return;
+  }
   await setDoc(doc(db, "Users", uid), {
     email,
     uid,

@@ -17,7 +17,19 @@ const customStyles = {
   },
 };
 
-const interests = ["Crypto", "Regulations", "Finance"];
+const interests = [
+  "Fintech",
+  "Funding",
+  "AI",
+  "M&A",
+  "Startups",
+  "Cybersecurity",
+  "Robotics",
+  "Crypto",
+  "Transportation",
+  "Consumer",
+  "Regulations",
+];
 
 export default function ChooseInterestModal({
   userId,
