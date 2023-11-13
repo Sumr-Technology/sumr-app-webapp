@@ -1,4 +1,3 @@
-import fs from "fs/promises";
 import { Sumr } from "../Types/Sumrs";
 type bannerToMax = {
   [key: string]: number;
