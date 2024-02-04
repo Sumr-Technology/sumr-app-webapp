@@ -1,24 +1,24 @@
-import { useEffect, useState } from "react";
-import { apiGETCall } from "../../../Helpers/Service";
-import SumrFeedCard from "./SumrFeedCard";
-import { Sumr } from "../../../Types/Sumrs";
-import FilterSidebar from "../../Layout/Sidebar/FilterSidebar";
-import { auth } from "../../../Helpers/Firebase";
-import { useUser } from "../../../Layout/DefaultLayout";
-import InfiniteScroll from "react-infinite-scroller";
+import { useEffect, useState } from 'react';
+import { apiGETCall } from '../../../Helpers/Service';
+import SumrFeedCard from './SumrFeedCard';
+import { Sumr } from '../../../Types/Sumrs';
+import FilterSidebar from '../../Layout/Sidebar/FilterSidebar';
+import { auth } from '../../../Helpers/Firebase';
+import { useUser } from '../../../Layout/DefaultLayout';
+import InfiniteScroll from 'react-infinite-scroller';
 
 const availableCategories = [
-  "Fintech",
-  "Funding",
-  "AI",
-  "M&A",
-  "Startups",
-  "Cybersecurity",
-  "Robotics",
-  "Crypto",
-  "Transportation",
-  "Consumer",
-  "Regulations",
+  'Fintech',
+  'Funding',
+  'AI',
+  'M&A',
+  'Startups',
+  'Cybersecurity',
+  'Robotics',
+  'Crypto',
+  'Transportation',
+  'Consumer',
+  'Regulations',
 ];
 
 const Dashboard = () => {
@@ -30,7 +30,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (user) {
-      let url = "/api/sumrs/latest";
+      let url = '/api/sumrs/latest';
       if (categories.length > 0) {
         url = url + `?filter=${JSON.stringify(categories)}`;
       } else if (user.interestList.length > 0) {
@@ -58,7 +58,7 @@ const Dashboard = () => {
 
   function fetchMore() {
     if (user && page > 0) {
-      let url = "/api/sumrs/latest";
+      let url = '/api/sumrs/latest';
       if (categories.length > 0) {
         url = url + `?filter=${JSON.stringify(categories)}`;
       } else if (user.interestList.length > 0) {
@@ -92,17 +92,17 @@ const Dashboard = () => {
       />
 
       {categories?.length > 0 && (
-        <div className="sticky flex gap-1 px-10 flex-wrap bg-primaryDark py-4 top-20 ">
+        <div className="sticky flex gap-2 md:-mx-24 px-10 flex-wrap md:pb-12 md:-mt-14">
           {categories.map((c, i) => (
-            <div className="border text-white flex gap-2 border-primary rounded-lg min-w-[100px] p-2">
+            <div className="border text-white flex gap-3 border-primary rounded-lg min-w-[100px] p-2 md:px-4 justify-between">
+              <span>{c}</span>
               <button
                 onClick={() => handleRemoveCategory(c)}
                 key={i}
-                className="border-r-primary pr-1.5 border-r"
+                className="border-l-primary border-l pl-3"
               >
                 X
               </button>
-              <span>{c}</span>
             </div>
           ))}
         </div>

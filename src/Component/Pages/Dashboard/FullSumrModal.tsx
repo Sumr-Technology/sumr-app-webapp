@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import Modal from "react-modal";
-import { Sumr } from "../../../Types/Sumrs";
+import React, { useEffect, useState } from 'react';
+import Modal from 'react-modal';
+import { Sumr } from '../../../Types/Sumrs';
 
 const customStyles = {
   content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: "#203436",
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: '#203436',
   },
   overlay: {
-    backgroundColor: "rgba(0,0,0,0.8)",
+    backgroundColor: 'rgba(0,0,0,0.8)',
   },
 };
 
@@ -44,11 +44,11 @@ export default function FullSumrModal({ data }: { data: Sumr }) {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <div className="flex pb-6 max-w-4xl flex-col">
+        <div className="flex pb-6 max-w-4xl flex-col z-50">
           <div className="flex text-white  flex-col gap-6 bg-primaryDark">
             <div className="flex self-end justify-between">
               <button className="self-end text-white" onClick={closeModal}>
-                close
+                Close
               </button>
             </div>
             <span className="font-bold text-xl -mt-4">{data.title}</span>
@@ -58,7 +58,7 @@ export default function FullSumrModal({ data }: { data: Sumr }) {
             </div>
             <div className="flex gap-2">
               {data?.tag?.map((t) => (
-                <div className="border px-2 py-1">{t}</div>
+                <div className="border px-3 py-1 rounded-lg">{t}</div>
               ))}
             </div>
           </div>

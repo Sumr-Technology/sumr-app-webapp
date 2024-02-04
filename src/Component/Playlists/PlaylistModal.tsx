@@ -1,21 +1,21 @@
-import { collection, doc, setDoc } from "firebase/firestore";
-import React, { useState } from "react";
-import Modal from "react-modal";
-import { createPlaylist } from "../../Helpers/FireStore";
-import { auth } from "../../Helpers/Firebase";
+import { collection, doc, setDoc } from 'firebase/firestore';
+import React, { useState } from 'react';
+import Modal from 'react-modal';
+import { createPlaylist } from '../../Helpers/FireStore';
+import { auth } from '../../Helpers/Firebase';
 
 const customStyles = {
   content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: "#203436",
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: '#203436',
   },
   overlay: {
-    backgroundColor: "rgba(0,0,0,0.8)",
+    backgroundColor: 'rgba(0,0,0,0.8)',
   },
 };
 
@@ -25,8 +25,8 @@ export default function PlaylisModal({
   onNewPlaylist: () => void;
 }) {
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
 
   const _auth = auth;
 
@@ -43,14 +43,17 @@ export default function PlaylisModal({
   }
 
   async function newPlaylist() {
-    await createPlaylist(name, description, auth?.currentUser?.uid ?? "");
+    await createPlaylist(name, description, auth?.currentUser?.uid ?? '');
     onNewPlaylist();
     setIsOpen(false);
   }
 
   return (
     <div>
-      <button className="text-white" onClick={openModal}>
+      <button
+        className="text-white h-10 text-3xl hover:text-primary"
+        onClick={openModal}
+      >
         +
       </button>
       <Modal
