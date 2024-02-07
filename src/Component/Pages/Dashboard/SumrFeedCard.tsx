@@ -5,7 +5,7 @@ import { User } from '../../../Types/User';
 import Favorite from '../../../assets/icons/favorite.svg';
 import FavoriteBorder from '../../../assets/icons/favorite_border.svg';
 import Send from '../../../assets/icons/send.svg';
-import AddToPlaylisModal from '../../Playlists/AddToPlaylistModal';
+import AddToPlaylistModal from '../../Playlists/AddToPlaylistModal';
 import FullSumrModal from './FullSumrModal';
 import { getSumrBanner } from '../../../Helpers/Banners';
 
@@ -94,7 +94,7 @@ export default function SumrFeedCard({
             {/* Buttons Section */}
             <section className="flex flex-col justify-between mt-4 md:mt-28">
               <div className="flex items-center -m-1.5 pl-3 gap-4">
-                <AddToPlaylisModal data={data} />
+                <AddToPlaylistModal data={data} />
                 <img
                   onClick={handleLike}
                   className="md:w-7 w-6 cursor-pointer"

@@ -3,28 +3,28 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithPopup,
-} from "firebase/auth";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { auth } from "../Helpers/Firebase";
-import { createUser } from "../Helpers/FireStore";
+} from 'firebase/auth';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { auth } from '../Helpers/Firebase';
+import { createUser } from '../Helpers/FireStore';
 
 function Signup() {
   const navigate = useNavigate();
-  const [error, setError] = useState("");
-  const [email, setEmail] = useState("");
+  const [error, setError] = useState('');
+  const [email, setEmail] = useState('');
   const [loader, setLoader] = useState(false);
-  const [password, setPassword] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [name, setName] = useState("");
-  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [name, setName] = useState('');
+  const [username, setUserName] = useState('');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUserEmail(user.email || "");
+        setUserEmail(user.email || '');
       } else {
-        setUserEmail("");
+        setUserEmail('');
       }
     });
     return unsubscribe;
@@ -33,24 +33,24 @@ function Signup() {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateEmail(email)) {
-      setError("Invalid email");
+      setError('Invalid email');
       setLoader(false);
       return;
     }
     if (!validatePassword(password)) {
       setError(
-        "Password must be at least 8 characters long and contain at least 1 lowercase letter, 1 uppercase letter, 1 digit, and 1 special character",
+        'Password must be at least 8 characters long and contain at least 1 lowercase letter, 1 uppercase letter, 1 digit, and 1 special character'
       );
       setLoader(false);
       return;
     }
     if (!name) {
-      setError("Name field can not be empty");
+      setError('Name field can not be empty');
       setLoader(false);
       return;
     }
     if (!username) {
-      setError("Username field can not be empty");
+      setError('Username field can not be empty');
       setLoader(false);
       return;
     }
@@ -58,12 +58,12 @@ function Signup() {
       let userCreds = await createUserWithEmailAndPassword(
         auth,
         email,
-        password,
+        password
       );
       await createUser(email, userCreds.user.uid, name, username);
       const token = await userCreds.user.getIdToken();
-      localStorage.setItem("token", token);
-      navigate("/sumrs");
+      localStorage.setItem('token', token);
+      navigate('/sumrs');
       setLoader(false);
     } catch (err: any) {
       setError(err.message);
@@ -87,9 +87,9 @@ function Signup() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       const token = await result.user.getIdToken();
-      await createUser(user.email ?? "", user.uid, name, username);
-      localStorage.setItem("token", token);
-      navigate("/sumrs");
+      await createUser(user.email ?? '', user.uid, name, username);
+      localStorage.setItem('token', token);
+      navigate('/sumrs');
       setLoader(false);
     } catch (error: any) {
       setError(error.message);
@@ -101,7 +101,7 @@ function Signup() {
     <>
       <section className="bg-primaryDark">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-          <div className="w-full bg-primaryDark border-2 border-primary rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div className="w-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-slate-700 to-primary-dark bg-gradient-to-r border-2 border-primary rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               {error && <span className="mt-10 text-red-600">{error}</span>}
               <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
@@ -119,7 +119,7 @@ function Signup() {
                     value={email}
                     required
                     onChange={(e) => setEmail(e.target.value)}
-                    className="bg-primaryDark border border-primary text-white sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                    className="bg-transparent border border-primary text-white sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                     placeholder="name@company.com"
                   />
                 </div>
@@ -135,7 +135,7 @@ function Signup() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="bg-primaryDark border border-primary text-white sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                    className="bg-transparent border border-primary text-white sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                   />
                 </div>
 
@@ -151,7 +151,7 @@ function Signup() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className="bg-primaryDark border border-primary text-white sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                    className="bg-transparent border border-primary text-white sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                   />
                 </div>
 
@@ -167,7 +167,7 @@ function Signup() {
                     value={username}
                     onChange={(e) => setUserName(e.target.value)}
                     required
-                    className="bg-primaryDark border border-primary text-white sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
+                    className="bg-transparent border border-primary text-white sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5"
                   />
                 </div>
 
@@ -206,9 +206,9 @@ function Signup() {
                   </button>
                 )}
                 <p className="text-sm font-light text-white">
-                  Do you have an account already?
+                  Do you have an account already?&nbsp;
                   <a
-                    onClick={() => navigate("/login")}
+                    onClick={() => navigate('/login')}
                     className="font-medium text-primary hover:underline cursor-pointer"
                   >
                     Log in

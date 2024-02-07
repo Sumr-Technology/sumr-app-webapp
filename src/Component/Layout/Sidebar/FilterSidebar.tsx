@@ -1,9 +1,16 @@
 import { Dispatch, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import PlaylisModal from '../../Playlists/PlaylistModal';
+import PlaylistModal from '../../Playlists/PlaylistModal';
 import { deletePlaylist, getUserPlaylists } from '../../../Helpers/FireStore';
 import { auth } from '../../../Helpers/Firebase';
 import { Playlist } from '../../../Types/Playlist';
+import {
+  ChevronRightIcon,
+  ChevronLeftIcon,
+  GlobeAltIcon,
+  SquaresPlusIcon,
+} from '@heroicons/react/24/outline';
+import React from 'react';
 
 const FilterSidebar = ({
   categories,
@@ -18,6 +25,8 @@ const FilterSidebar = ({
   hideCategories?: boolean;
   currentPlaylistId?: string | null;
 }) => {
+  const [expanded, setExpanded] = useState(true);
+
   const _auth = auth;
 
   const normalizedCategories = Array.from(new Set(categories ?? []));
@@ -46,12 +55,30 @@ const FilterSidebar = ({
   return (
     <aside
       id="logo-sidebar"
-      className="fixed rounded-2xl text-white shadow-2xl border-[1px] border-r-[0px] border-slate-500 w-64 lg1:w-72 lg2:w-72 top-0 right-0 z-40 h-2/3 pt-0 transition-transform translate-x-full mdsm:translate-x-0 translate-y-[100px] rounded-tr-none rounded-br-none bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-slate-700 to-primaryDark bg-gradient-to-r"
+      className="fixed rounded-2xl text-white shadow-2xl border-[1px] border-r-[0px] border-slate-500 w-64 lg1:w-72 lg2:w-72 top-0 right-0 z-40 h-2/3 pt-0 transition-all translate-x-full mdsm:translate-x-0 translate-y-[100px] rounded-tr-none rounded-br-none bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-slate-700 to-primaryDark bg-gradient-to-r"
       aria-label="Sidebar"
+      style={{ width: expanded ? '' : '135px' }}
     >
-      <div className="h-full px-3 flex flex-col gap-2 overflow-y-auto  bg-transparent ">
+      <div
+        className={`flex flex-col items-center transition-all mt-28 gap-44 ${
+          expanded ? 'hidden' : ''
+        }`}
+      >
+        {React.createElement(GlobeAltIcon, {
+          className: 'w-6 h-6 md:w-8 md:h-8 hover:text-primary transition-all',
+        })}
+        {React.createElement(SquaresPlusIcon, {
+          className: 'w-6 h-6 md:w-8 md:h-8 hover:text-primary transition-all',
+        })}
+      </div>
+      {/* Main Container for Content */}
+      <div
+        className={`h-full px-3 flex flex-col gap-2 overflow-y-auto  bg-transparent transition-all ${
+          expanded ? '' : 'w-0'
+        }`}
+      >
         {!hideCategories && (
-          <div className="flex flex-col  rounded-lg px-4 w-48 py-2">
+          <div className="flex flex-col rounded-lg px-4 w-48 py-2">
             <span className="font-medium  pb-2 text-lg text-gray-300 md:text-2xl">
               Categories
             </span>
@@ -76,13 +103,24 @@ const FilterSidebar = ({
             </div>
           </div>
         )}
+        {/* Open Sidebar Button */}
+        <button
+          className="p-2 bg-gray-800 rounded-lg absolute md:-left-6 shadow-xl"
+          style={{ top: '200px' }}
+          onClick={() => setExpanded((curr) => !curr)}
+        >
+          {React.createElement(expanded ? ChevronRightIcon : ChevronLeftIcon, {
+            className:
+              'w-6 h-6 md:w-8 md:h-8 hover:text-primary transition-all',
+          })}
+        </button>
 
         <div className="flex flex-col rounded-lg px-4 w-max h-full">
           <div className="flex justify-between">
             <span className="font-medium py-2 text-lg md:text-2xl text-gray-300">
               My Playlists
             </span>
-            <PlaylisModal
+            <PlaylistModal
               onNewPlaylist={() => {
                 getUserPlaylists(_auth.currentUser?.uid ?? '').then((p) => {
                   setPlaylists(p);

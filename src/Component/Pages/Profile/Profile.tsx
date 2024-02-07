@@ -2,6 +2,7 @@ import ProfileImage from './ProfileImage';
 import { useUser } from '../../../Layout/DefaultLayout';
 import { useEffect, useState } from 'react';
 import { chooseInterest, updateUserProfile } from '../../../Helpers/FireStore';
+import EditProfileModal from './EditProfileModal';
 
 const Profile = () => {
   const { user, refetchCurrentUser } = useUser();
@@ -89,75 +90,43 @@ const Profile = () => {
   }
 
   return (
-    <div className="flex gap-6 text-white relative flex-col items-center ">
-      <span className="font-semibold text-3xl mt-6 md:mt-5">Your Profile</span>
-      <div className="flex-col flex gap-10 items-center">
+    <div className="flex text-white flex-col items-center">
+      <div className="flex-col flex items-center mb-6">
+        <span className="text-6xl font-semibold mb-5">{user?.name}</span>
         <ProfileImage
           refetchCurrentUser={refetchCurrentUser}
           user={user}
           userId={user?.uid || ''}
         />
-        <div className="flex gap-6 flex-col">
-          {displayError && (
-            <span className="text-red-400 -mb-5">Error: {displayError}</span>
-          )}
-          {/* Email Container */}
-          <div className="flex gap-24">
-            <div className="flex w-44 gap-1 flex-col">
-              <span className="font-semibold text-lg">Email</span>
-              <span className="font-light">{user?.email}</span>
-            </div>
-            {/* Name Container */}
-            <div className="flex gap-1 flex-col">
-              <span className="font-semibold text-lg">Name</span>
-              <input
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
-                className="font-light text-white border rounded px-1 border-primary bg-gray-600"
-                value={_name}
-              />
-            </div>
-          </div>
-          {/* DOB Container */}
-          <div className="flex gap-24">
-            <div className="flex w-44 gap-1 flex-col">
-              <span className="font-semibold text-lg">Date of Birth</span>
-              <input
-                value={formattedDOB}
-                onChange={(e) => {
-                  setdob(new Date(e.target.value).getTime().toString());
-                }}
-                type="date"
-                className="font-light text-white border rounded px-1 border-primary bg-gray-600"
-              />
-            </div>
-            {/* UserName Container */}
-            <div className="flex gap-1 flex-col">
-              <span className="font-semibold text-lg">User Name</span>
-              <input
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                }}
-                placeholder="Enter username"
-                className="font-light text-white border rounded px-1 border-primary bg-gray-600"
-                value={_username}
-              />
-            </div>
-          </div>
+        {/* New Display */}
+        <div className="flex flex-col items-center text-center mb-5 mt-3">
+          <ul className="flex flex-col space-y-2">
+            <span className="text-2xl ">@{user?.username}</span>
+            <span className="text-xl">
+              {user?.dob &&
+                new Date(user.dob).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+            </span>
+            <span className="text-xl">{user?.email}</span>
+          </ul>
         </div>
+        <EditProfileModal />
       </div>
       {unsaved && (
         <button
           onClick={handleSave}
-          className="rounded mt-5 w-32 py-1 bg-primary text-white"
+          className="rounded-lg my-16 w-38 py-2 px-3 bg-primary text-white text-lg"
         >
           Save Changes
         </button>
       )}
 
-      <div className="flex-col flex items-center my-10">
-        <span className="font-semibold text-3xl md:mb-6">Interests</span>
+      {/* Interests Section */}
+      <div className="flex-col flex items-center my-2  rounded-xl p-6 bg-gradient-to-b from-primaryDark to-gray-600 bg-gradient-to-r pb-16 shadow-xl border-t-2 border-gray-400">
+        <span className="font-semibold text-3xl mb-6 ">Interests</span>
         <div className="flex gap-8 flex-col">
           <div className="flex gap-3 flex-col ">
             <span className="text-xl">Your chosen interests</span>
@@ -174,7 +143,7 @@ const Profile = () => {
                       setInterestsToRemove([...new Set(_new)]);
                     }
                   }}
-                  className="border flex justify-between rounded-lg border-primary w-fit text-left py-1 px-4 text-xl"
+                  className="border flex justify-between rounded-lg border-primary w-fit text-left py-1 px-4 text-xl shadow-xl"
                   key={i}
                 >
                   {int}
@@ -209,7 +178,7 @@ const Profile = () => {
                   }}
                   className={`border ${
                     interestToAdd.find((itr) => itr === int) ? 'bg-primary' : ''
-                  } rounded-lg border-primary w-fit px-6 py-2 text-xl `}
+                  } rounded-lg border-primary w-fit px-6 py-2 text-xl shadow-xl `}
                   key={i}
                 >
                   {int}
@@ -220,7 +189,7 @@ const Profile = () => {
           {(interestToAdd.length > 0 || interestToRemove.length > 0) && (
             <button
               onClick={handleSaveInterets}
-              className="rounded mt-5 w-32 py-1 bg-primary text-white"
+              className="rounded-lg mt-5 w-1/2 py-2 px-3  bg-primary text-white text-xl self-center hover:text-gray-700"
             >
               Save Changes
             </button>

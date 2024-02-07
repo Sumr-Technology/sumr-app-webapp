@@ -44,7 +44,7 @@ const Sidebar = () => {
               onClick={() => handleTabClick(tab.path)}
               className={`${
                 location.pathname.includes(tab.name.toLowerCase())
-                  ? 'bg-primary text-gray-800 hover:text-white'
+                  ? 'bg-primary text-gray-800 hover:text-white shadow-xl'
                   : ''
               } rounded-2xl hover:text-primary text-white flex-1 w-full md:text-xl overflow-hidden  ${
                 expanded ? '' : 'w'
@@ -74,7 +74,7 @@ const Sidebar = () => {
         </ul>
         {/* Open Sidebar Button */}
         <button
-          className="p-2 bg-gray-800 rounded-lg absolute md:-right-6 "
+          className="p-2 bg-gray-800 rounded-lg absolute md:-right-6 shadow-xl"
           style={{ top: '200px' }}
           onClick={() => setExpanded((curr) => !curr)}
         >

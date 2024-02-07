@@ -21,7 +21,7 @@ const customStyles = {
   },
 };
 
-export default function AddToPlaylisModal({ data }: { data: Sumr }) {
+export default function AddToPlaylistModal({ data }: { data: Sumr }) {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [selectedPlaylist, setSelectedPlaylist] = useState<{
     name: string;
