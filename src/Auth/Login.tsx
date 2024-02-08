@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
-} from "firebase/auth";
-import { auth } from "../Helpers/Firebase";
-import { Navigate, useNavigate } from "react-router-dom";
-import { createUser } from "../Helpers/FireStore";
-import SumrLogo from "../assets/images/Sumr.png";
+} from 'firebase/auth';
+import { auth } from '../Helpers/Firebase';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { createUser } from '../Helpers/FireStore';
+import SumrLogo from '../assets/images/Sumr.png';
 
 function Login() {
-  const token: any = localStorage.getItem("token");
+  const token: any = localStorage.getItem('token');
 
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
   const [loader, setLoader] = useState(false);
-  const [password, setPassword] = useState("");
-  const [userEmail, setUserEmail] = useState("");
+  const [password, setPassword] = useState('');
+  const [userEmail, setUserEmail] = useState('');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUserEmail(user.email || "");
+        setUserEmail(user.email || '');
       } else {
-        setUserEmail("");
+        setUserEmail('');
       }
     });
     return unsubscribe;
@@ -35,13 +35,13 @@ function Login() {
     setLoader(true);
     e.preventDefault();
     if (!validateEmail(email)) {
-      setError("Invalid email");
+      setError('Invalid email');
       setLoader(false);
       return;
     }
     if (!validatePassword(password)) {
       setError(
-        "Password must be at least 8 characters long and contain at least 1 lowercase letter, 1 uppercase letter, 1 digit, and 1 special character",
+        'Password must be at least 8 characters long and contain at least 1 lowercase letter, 1 uppercase letter, 1 digit, and 1 special character'
       );
       setLoader(false);
       return;
@@ -49,8 +49,8 @@ function Login() {
     try {
       const { user } = await signInWithEmailAndPassword(auth, email, password);
       const token = await user.getIdToken();
-      localStorage.setItem("token", token);
-      navigate("/sumrs");
+      localStorage.setItem('token', token);
+      navigate('/sumrs');
       setLoader(false);
     } catch (err: any) {
       CommonError(error);
@@ -64,9 +64,9 @@ function Login() {
       const result = await signInWithPopup(auth, provider);
       const token = await result.user.getIdToken();
       const user = result.user;
-      await createUser(user.email ?? "", user.uid, "", "");
-      localStorage.setItem("token", token);
-      navigate("/sumrs");
+      await createUser(user.email ?? '', user.uid, '', '');
+      localStorage.setItem('token', token);
+      navigate('/sumrs');
       setLoader(false);
     } catch (error: any) {
       CommonError(error);
@@ -92,9 +92,9 @@ function Login() {
     <>
       {!token ? (
         <section className="bg-primaryDark">
-          <div className="flex gap-5 flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <img src={SumrLogo} alt="Sumr" className="h-8 w-auto" />
-            <div className="w-full border-primary border-2 bg-primaryDark rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
+          <div className="flex gap-5 flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 ">
+            <img src={SumrLogo} alt="Sumr" className="h-14 w-auto my-6" />
+            <div className="w-full border-primary border-2 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-slate-700 to-primary-dark bg-gradient-to-r rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
               <div className="p-6 space-y-4 border border-primary   rounded md:space-y-6 sm:p-8">
                 {error && <span className="mt-10 text-red-600">{error}</span>}
                 <h1 className="text-xl text-white font-bold leading-tight tracking-tight md:text-2xl">
@@ -112,7 +112,7 @@ function Login() {
                       value={email}
                       required
                       onChange={(e) => setEmail(e.target.value)}
-                      className="bg-primaryDark border border-primary text-white sm:text-sm rounded-lg block w-full p-2.5"
+                      className="bg-transparent border border-primary text-white sm:text-sm rounded-lg block w-full p-2.5"
                       placeholder="name@company.com"
                     />
                   </div>
@@ -128,12 +128,12 @@ function Login() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      className="bg-primaryDark border border-primary text-white sm:text-sm rounded-lg block w-full p-2.5"
+                      className="bg-transparent border border-primary text-white sm:text-sm rounded-lg block w-full p-2.5"
                     />
                   </div>
                   <div className="flex items-center justify-between">
                     <a
-                      onClick={() => navigate("/forgotpassword")}
+                      onClick={() => navigate('/forgotpassword')}
                       className="text-sm font-medium text-primary hover:underline cursor-pointer"
                     >
                       Forgot password?
@@ -174,9 +174,9 @@ function Login() {
                     </button>
                   )}
                   <p className="text-sm font-light text-white">
-                    Don’t have an account yet?{" "}
+                    Don’t have an account yet?{' '}
                     <a
-                      onClick={() => navigate("/signup")}
+                      onClick={() => navigate('/signup')}
                       className="font-medium hover:underline text-primary cursor-pointer"
                     >
                       Sign up

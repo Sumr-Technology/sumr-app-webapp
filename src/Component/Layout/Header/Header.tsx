@@ -1,14 +1,14 @@
-import SumrLogo from "../../../assets/images/Sumr.png";
-import { useState } from "react";
-import { Dialog } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useNavigate } from "react-router-dom";
-import { auth } from "../../../Helpers/Firebase";
+import SumrLogo from '../../../assets/images/Sumr.png';
+import { useState } from 'react';
+import { Dialog } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { useNavigate } from 'react-router-dom';
+import { auth } from '../../../Helpers/Firebase';
 
 const SIDEBAR_TABS = [
-  { name: "Sumrs", path: "/sumrs" },
-  { name: "Profile", path: "/profile" },
-  { name: "Playlists", path: "/playlists" },
+  { name: 'Sumrs', path: '/sumrs' },
+  { name: 'Profile', path: '/profile' },
+  { name: 'Playlists', path: '/playlists' },
 ];
 
 const Header = () => {
@@ -16,7 +16,7 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const handleLogOut = () => {
     auth.signOut();
-    navigate("/login");
+    navigate('/login');
     localStorage.clear();
   };
 
@@ -26,16 +26,16 @@ const Header = () => {
   };
   return (
     <>
-      <nav className="fixed top-0 z-50 text-white w-full bg-primaryDark">
-        <header className="px-36">
+      <nav className="fixed top-0 z-40 text-white w-full bg-transparent">
+        <header className="px-36 md:px-12">
           <nav
-            className="flex items-center justify-between p-6 lg:px-8"
+            className="flex items-center justify-between p-5 lg:px-0"
             aria-label="Global"
           >
             <div className="flex lg:flex-1">
-              <a href="#" className="-m-1.5 p-1.5">
+              <a href="#" className="">
                 <span className="sr-only">Sumr</span>
-                <img src={SumrLogo} alt="Sumr" className="h-8 w-auto" />
+                <img src={SumrLogo} alt="Sumr" className="h-8 md:h-14 w-auto" />
               </a>
             </div>
             <div className="flex lg:hidden">
@@ -47,14 +47,6 @@ const Header = () => {
                 <span className="sr-only">Open main menu</span>
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
               </button>
-            </div>
-            <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-              <a
-                className="cursor-pointer text-md font-semibold leading-6 text-white"
-                onClick={handleLogOut}
-              >
-                Log out <span aria-hidden="true">&rarr;</span>
-              </a>
             </div>
           </nav>
           <Dialog
