@@ -46,13 +46,16 @@ export default function ProfileImage({
   };
 
   return (
-    <div className="flex items-center justify-center gap-2 flex-col">
+    <div className="flex items-center justify-center gap-3 flex-col">
       {image && <img className="w-44 rounded-full h-40" src={image} />}
       {!image && !user?.profileImage && (
         <span className="bg-white rounded-full w-44 h-40" />
       )}
       {user?.profileImage && !unsaved && !image && (
-        <img className="w-44 rounded-full h-40" src={user?.profileImage} />
+        <img
+          className="w-44 rounded-full h-40 shadow-2xl border border-gray-500"
+          src={user?.profileImage}
+        />
       )}
       <div className="flex gap-2">
         <form>
@@ -84,8 +87,6 @@ export default function ProfileImage({
             Upload
           </button>
         )}
-
-        {/* <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" type="file" accept="image/*" /> */}
       </div>
     </div>
   );
